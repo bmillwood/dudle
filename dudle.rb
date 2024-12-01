@@ -132,7 +132,9 @@ class Dudle
 			File.open("last_read_access","w").close unless @cgi.user_agent =~ $conf.bots
 			@basedir = ".."
 			inittabs
-			@table = YAML::load(VCS.cat(self.revision, "data.yaml"))
+			@table = YAML::load(VCS.cat(self.revision, "data.yaml"),
+				permitted_classes: [Date, Poll, Time, TimePollHead, TimeString]
+			)
 			@urlsuffix = File.basename(File.expand_path("."))
 			@title = @table.name
 			
